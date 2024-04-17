@@ -1,0 +1,15 @@
+// to use the library, use the command: #include <iostream>
+// Introduzing C++ for Programmers
+
+// Call the library std::cout and std::endl
+// endl is a /n
+// cout is a print()
+// for example: std::cout << "Hello, World!" << std::endl;
+// to create the program, type in the terminal: g++ anotacoes.cpp -output anotacoes
+// to run the program, type in the terminal: ./anotacoes
+// types: int, float, double, char, bool
+// types std::string, std::vector, std::array, std::map, std::set, std::unordered_map, std::unordered_set
+// cin is a input()
+// for example: std::cin >> x;
+
+// Void is a function that does not return anything
