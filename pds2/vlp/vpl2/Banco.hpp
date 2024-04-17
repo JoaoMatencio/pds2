@@ -4,10 +4,14 @@
 #include <array>
 
 class Banco {
-private:
-    int accountsNumbers = 0;
-    std::string name;
-    std::array<int, 20> listAccounts;
+public:
+    std::string addAccount(int accountNumber);
+    std::string deposit(int accountNumber, int value);
+    std::string withdraw(int accountNumber, int value);
+    std::string transfer(int accountNumber1, int accountNumber2, int value);
+    std::array<int, 20> listAccounts();
+    int construtoctor(std::string listAccounts);
+    auto findAccount(int accountNumber);
 };
 
 #endif
