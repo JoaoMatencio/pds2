@@ -1,73 +1,40 @@
 #include "Banco.hpp"
 
-std::string Banco::addAccount(int accountNumber) {
-    auto insert = listAccounts.insert(accountNumber);
-    if (!insert.second) {
-        return "ERRO: conta repetida";
-    }
-
-    return "conta criada";
+Banco::Banco() : numContas(0) {
+    contas.fill(nullptr);
 }
 
-auto Banco::findAccount(int accountNumber) {
-    if (listAccounts.find(accountNumber)){
-        return &listAccounts.find(accountNumber);
-    } else {
-        return nullptr;
+Banco::~Banco() {
+    for (auto& conta : contas) {
+        delete conta;
     }
 }
 
-std::array<int, 20> Banco::listAccounts() {
-    return listAccounts;
+ContaBancaria* Banco::criaConta(int id, const std::string& cliente) {
+    for (int i = 0; i < numContas; ++i) {
+        if (contas[i] && contas[i]->id == id) return nullptr;
+    }
+    if (numContas < 20) {
+        contas[numContas] = new ContaBancaria(id, cliente);
+        numContas++;
+        return contas[numContas - 1];
+    }
+    return nullptr;
 }
 
-int Banco::construtoctor(std::string listAccounts) {
-    for &i in listAccounts:
-        listAccounts.insert(i);
-    return 0;
+ContaBancaria* Banco::pesquisa(int id) {
+    for (int i = 0; i < numContas; ++i) {
+        if (contas[i] && contas[i]->id == id) {
+            return contas[i];
+        }
+    }
+    return nullptr;
 }
 
-std::string Banco::deposit(int accountNumber, int value) {
-    auto account = findAccount(accountNumber);
-    if (account == nullptr) {
-        return "ERRO: conta inexistente";
+void Banco::listaContas() {
+    for (int i = 0; i < numContas; ++i) {
+        if (contas[i]) {
+            contas[i]->imprime();
+        }
     }
-
-    account->deposit(value);
-    return "depósito realizado";
-}
-
-
-std::string Banco::withdraw(int accountNumber, int value) {
-    auto account = findAccount(accountNumber);
-    if (account == nullptr) {
-        return "ERRO: conta inexistente";
-    }
-
-    return "saque realizado";
-}
-
-std::string Banco::transfer(int accountNumber1, int accountNumber2, int value) {
-    auto account1 = findAccount(accountNumber1);
-    if (account1 == nullptr) {
-        return "ERRO: conta inexistente";
-    }
-
-    auto account2 = findAccount(accountNumber2);
-    if (account2 == nullptr) {
-        return "ERRO: conta inexistente";
-    }
-
-    account1->withdraw(value);
-    account2->deposit(value);
-    return "pix efetuado";
-}
-
-std::string Banco::listAllAccounts() {
-    std::string accounts;
-    for (auto &account : listAccounts) {
-        accounts += account + "\n";
-    }
-
-    return accounts;
 }
